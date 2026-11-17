@@ -1,0 +1,49 @@
+# Spotter - Web App
+
+Web de Spotter en React para consultar rutinas y perfil con la API [backend-spotter](https://github.com/SpotterP/backend-spotter).
+
+## Instalar las dependencias
+
+```bash
+npm install
+```
+
+Hace falta el backend arrancado con su MongoDB (ver su [README](https://github.com/SpotterP/backend-spotter#readme): `npm install`, `cp .env.example .env`, `npm run seed` y `npm run dev`).
+
+Toda la configuración de la API está en un solo sitio en [`src/config.ts`](src/config.ts) mediante la variable `VITE_API_URL`. Por defecto apunta a `http://localhost:1337`. Para cambiarla sin tocar código, se puede crear un archivo `.env.local` a partir de `.env.example`:
+
+```bash
+cp .env.example .env.local
+```
+
+## Ejecutar
+
+Mientras programas, arranca Vite en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+Queda disponible en <http://localhost:5173>. Para entrar se puede usar el usuario normal de prueba del seed del backend: `user@example.com` / `seminari7`, o registrar un usuario nuevo en la pantalla de registro.
+
+Para compilar la versión de producción:
+
+```bash
+npm run build
+```
+
+## Pantallas
+
+Sin sesión, cualquier página protegida redirige a `/login`.
+
+| Ruta | Pantalla | Quién puede | Qué hace |
+|---|---|---|---|
+| `/login` | Iniciar sesión | solo sin sesión | Pide email y contraseña a `POST /auth/login`, guarda los tokens y el usuario, y redirige a la app |
+| `/registro` | Crear cuenta | solo sin sesión | Registra un usuario nuevo con rol `USER` (`POST /auth/register`), sin token, y lleva al login con aviso de confirmación |
+| `/rutinas` | Mis rutinas | con sesión | Lista las rutinas (`GET /workouts`) ordenadas por día de la semana |
+| `/perfil` | Perfil | con sesión | Muestra el nombre y el correo del usuario autenticado |
+| cualquier otra | — | — | Redirige a `/rutinas` (o a `/login` si no hay sesión) |
+
+## Qué queda fuera de la demo
+
+Esta demo web cubre el flujo de autenticación, renovación de token por refresh, navegación protegida, listado de rutinas y perfil. El seguimiento de entrenamientos activos, registro de series, calendario y cálculo de progreso quedan en la app móvil.
