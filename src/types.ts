@@ -30,25 +30,16 @@ export interface Exercise {
   category?: string;
 }
 
+export interface WorkoutExercise {
+  exercise: Exercise | string;
+  sets: number;
+  reps: number;
+}
+
 export interface Workout {
   _id: string;
   name: string;
   description?: string;
-  dayOfWeek: DayOfWeek;
-  // En el listado llegan como ids; en el detalle, completos.
-  exercises: Array<string | Exercise>;
-}
-
-export interface PageInfo {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPrevPage: boolean;
-}
-
-export interface WorkoutsPage {
-  workouts: Workout[];
-  pagination: PageInfo;
+  days: DayOfWeek[];
+  exercises: WorkoutExercise[];
 }

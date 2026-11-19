@@ -1,6 +1,6 @@
 import { API_URL } from '../config';
 import { loadSession, saveSession } from '../auth/session';
-import type { LoginResponse, User, Workout, WorkoutsPage } from '../types';
+import type { LoginResponse, User, Workout } from '../types';
 
 export class ApiError extends Error {
   status: number;
@@ -92,6 +92,11 @@ export const api = {
     publicRequest<{ user: User }>('/auth/register', input),
   login: (input: { email: string; password: string }) =>
     publicRequest<LoginResponse>('/auth/login', input),
-  workouts: () => request<WorkoutsPage>('/workouts?limit=100'),
-  workout: (id: string) => request<{ workout: Workout }>(`/workouts/${id}`),
+  myWorkouts: () => request<{ workouts: Workout[] }>('/users/me/workouts'),
+  createMyWorkout: (name: string) =>
+    request<{ workout: Workout }>('/users/me/workouts', {
+      method: 'POST',
+      body: JSON.stringify({ name }),
+    }),
+  deleteMyWorkout: (id: string) => request<null>(`/users/me/workouts/${id}`, { method: 'DELETE' }),
 };
