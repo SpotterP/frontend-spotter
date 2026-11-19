@@ -40,7 +40,8 @@ Sin sesión, cualquier página protegida redirige a `/login`.
 |---|---|---|---|
 | `/login` | Iniciar sesión | solo sin sesión | Pide email y contraseña a `POST /auth/login`, guarda los tokens y el usuario, y redirige a la app |
 | `/registro` | Crear cuenta | solo sin sesión | Registra un usuario nuevo con rol `USER` (`POST /auth/register`), sin token, y lleva al login con aviso de confirmación |
-| `/rutinas` | Mis rutinas | con sesión | Lista las rutinas (`GET /workouts`) ordenadas por día de la semana |
+| `/rutinas` | Mis rutinas | con sesión | Lista de rutinas del usuario, creación y eliminación |
+| `/rutinas/:id` | Editar rutina | con sesión | Detalle y edición de rutina (en desarrollo) |
 | `/perfil` | Perfil | con sesión | Muestra el nombre y el correo del usuario autenticado |
 | cualquier otra | — | — | Redirige a `/rutinas` (o a `/login` si no hay sesión) |
 
